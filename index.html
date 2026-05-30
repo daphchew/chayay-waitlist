@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chayay — Coming Soon</title>
+  <meta name="description" content="Chayay 茶业 — Premium instant tea sachets from Malaysia. Pure oolong and green tea. Join the pre-launch waitlist."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+SC:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --washi:     #EDEADE;
+      --parchment: #DDD6C0;
+      --sand:      #C4B590;
+      --sage:      #9BAE90;
+      --moss:      #5C7A58;
+      --forest:    #3A5C3A;
+      --ink:       #2C3C2C;
+      --ink-deep:  #1A2918;
+      --gold:      #E8A830;
+      --gold-lt:   #F2C060;
+      --cream:     #F0ECD8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--washi);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Paper grain overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      opacity: 0.04;
+      background-image:
+        repeating-linear-gradient(0deg, transparent, transparent 3px, #7a6a50 3px, #7a6a50 4px),
+        repeating-linear-gradient(90deg, transparent, transparent 22px, #7a6a50 22px, #7a6a50 22.4px);
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.5rem 2.5rem;
+      background: linear-gradient(to bottom, rgba(237,234,222,0.92) 0%, transparent 100%);
+    }
+
+    .nav-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.24em;
+      color: var(--ink);
+      text-transform: uppercase;
+      text-decoration: none;
+    }
+
+    .nav-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      color: var(--moss);
+      text-transform: uppercase;
+      border: 1px solid rgba(92,122,88,0.35);
+      padding: 4px 13px;
+      border-radius: 20px;
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 8rem 2rem 6rem;
+      overflow: hidden;
+      background: var(--washi);
+    }
+
+    /* Soft green glow behind content */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 65% 50% at 50% 52%, rgba(92,122,88,0.12) 0%, transparent 68%);
+      pointer-events: none;
+    }
+
+    /* Gold sun */
+    .sun {
+      position: absolute;
+      top: 11%; right: 11%;
+      width: clamp(52px, 8vw, 96px);
+      height: clamp(52px, 8vw, 96px);
+      background: var(--gold);
+      border-radius: 50%;
+      animation: sunRise 2s cubic-bezier(0.16,1,0.3,1) both;
+      box-shadow: 0 0 40px rgba(232,168,48,0.18), 0 0 90px rgba(232,168,48,0.07);
+    }
+
+    @keyframes sunRise {
+      from { opacity: 0; transform: translateY(16px) scale(0.82); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Mountain SVG */
+    .mountains {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      width: 100%; height: 54%;
+      pointer-events: none;
+    }
+
+    /* Mist fade at bottom of hero */
+    .mist {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 22%;
+      background: linear-gradient(to top, var(--washi) 35%, transparent 100%);
+      pointer-events: none;
+    }
+
+    /* ── Hero content ── */
+    .hero-content { position: relative; z-index: 2; }
+
+    .hero-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--moss);
+      text-transform: uppercase;
+      margin-bottom: 1.4rem;
+      opacity: 0.8;
+      animation: fadeUp 1s 0.1s ease both;
+    }
+
+    .hero-kanji {
+      font-family: 'Noto Serif SC', serif;
+      font-size: clamp(4.5rem, 14vw, 9.5rem);
+      color: var(--ink);
+      line-height: 1;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.15em;
+      opacity: 0.88;
+      animation: fadeUp 1.3s 0.15s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .hero-wordmark {
+      font-family: 'DM Sans', sans-serif;
+      font-size: clamp(1rem, 3vw, 1.7rem);
+      letter-spacing: 0.48em;
+      color: var(--ink);
+      opacity: 0.5;
+      text-transform: uppercase;
+      animation: fadeUp 1s 0.3s ease both;
+    }
+
+    .hero-rule {
+      width: 54px; height: 1px;
+      background: var(--gold);
+      margin: 1.5rem auto;
+      opacity: 0.6;
+      animation: expandX 1s 0.44s ease both;
+    }
+
+    .hero-descriptor {
+      font-size: 0.68rem;
+      letter-spacing: 0.24em;
+      color: var(--moss);
+      text-transform: uppercase;
+      animation: fadeUp 0.9s 0.5s ease both;
+    }
+
+    .hero-descriptor span { color: var(--gold); }
+
+    /* ── Form section ── */
+    .form-section {
+      position: relative;
+      background: var(--parchment);
+      padding: 5.5rem 2rem 6rem;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .form-section::before {
+      content: '';
+      position: absolute;
+      top: -70px; right: -70px;
+      width: 260px; height: 260px;
+      background: rgba(232,168,48,0.07);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+      pointer-events: none;
+    }
+
+    .form-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .form-heading {
+      font-family: 'EB Garamond', serif;
+      font-size: clamp(1.9rem, 4.5vw, 3rem);
+      color: var(--ink);
+      font-weight: 400;
+      line-height: 1.22;
+      margin-bottom: 0.7rem;
+      max-width: 500px;
+      margin-left: auto; margin-right: auto;
+    }
+
+    .form-heading em { color: var(--forest); font-style: italic; }
+
+    .form-sub {
+      font-size: 0.87rem;
+      color: var(--moss);
+      line-height: 1.75;
+      max-width: 390px;
+      margin: 0 auto 2.2rem;
+    }
+
+    .perks {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 2.3rem;
+    }
+
+    .perk {
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      color: var(--forest);
+      text-transform: uppercase;
+      border: 1px solid rgba(58,92,58,0.25);
+      padding: 5px 13px;
+      border-radius: 20px;
+      background: rgba(58,92,58,0.06);
+    }
+
+    .perk.gold {
+      color: #8A5E00;
+      border-color: rgba(232,168,48,0.4);
+      background: rgba(232,168,48,0.09);
+    }
+
+    .waitlist-form {
+      display: flex;
+      max-width: 420px;
+      margin: 0 auto;
+      border: 1.5px solid var(--sand);
+      border-radius: 5px;
+      overflow: hidden;
+      background: var(--washi);
+      transition: border-color 0.25s;
+      position: relative; z-index: 2;
+    }
+
+    .waitlist-form:focus-within { border-color: var(--forest); }
+
+    .waitlist-form input[type="email"] {
+      flex: 1;
+      padding: 0.95rem 1.3rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.88rem;
+      color: var(--ink);
+      background: transparent;
+      border: none; outline: none;
+      letter-spacing: 0.02em;
+    }
+
+    .waitlist-form input::placeholder { color: var(--sand); letter-spacing: 0.05em; }
+
+    .waitlist-form button {
+      padding: 0.95rem 1.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.68rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--washi);
+      background: var(--forest);
+      border: none; cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .waitlist-form button:hover { background: var(--ink); }
+
+    .form-note {
+      font-size: 0.66rem;
+      color: var(--sand);
+      margin-top: 1rem;
+      letter-spacing: 0.07em;
+      position: relative; z-index: 2;
+    }
+
+    .success-msg {
+      display: none;
+      font-family: 'EB Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--forest);
+      font-style: italic;
+      animation: fadeUp 0.6s ease both;
+    }
+
+    /* ── Flavors ── */
+    .flavors {
+      background: var(--washi);
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .section-eyebrow {
+      font-size: 0.6rem;
+      letter-spacing: 0.3em;
+      color: var(--moss);
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      opacity: 0.75;
+    }
+
+    .flavor-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      max-width: 600px;
+      margin: 0 auto 4.5rem;
+    }
+
+    .flavor-card {
+      background: var(--parchment);
+      border-radius: 18px;
+      padding: 2.5rem 1.5rem;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(92,122,88,0.14);
+      transition: transform 0.3s ease, border-color 0.3s;
+    }
+
+    .flavor-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(232,168,48,0.3);
+    }
+
+    .flavor-card::before {
+      content: '';
+      position: absolute;
+      bottom: -22px; right: -22px;
+      width: 100px; height: 100px;
+      background: rgba(58,92,58,0.05);
+      border-radius: 60% 40% 55% 45% / 50% 60% 40% 50%;
+    }
+
+    .flavor-kanji {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 2.5rem;
+      color: var(--forest);
+      opacity: 0.82;
+      display: block;
+      margin-bottom: 0.6rem;
+    }
+
+    .flavor-name {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: var(--gold);
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .flavor-desc {
+      font-size: 0.82rem;
+      color: var(--moss);
+      line-height: 1.65;
+    }
+
+    .flavor-tag {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.57rem;
+      letter-spacing: 0.18em;
+      color: var(--moss);
+      text-transform: uppercase;
+      border: 1px solid rgba(92,122,88,0.25);
+      padding: 3px 10px;
+      border-radius: 20px;
+      opacity: 0.6;
+    }
+
+    /* ── About row ── */
+    .about-row {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 1.5rem;
+      max-width: 780px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-num {
+      font-family: 'Noto Serif SC','EB Garamond',serif;
+      font-size: 2.3rem;
+      color: var(--forest);
+      opacity: 0.7;
+      display: block; margin-bottom: 0.4rem;
+    }
+
+    .about-label {
+      font-size: 0.6rem;
+      letter-spacing: 0.22em;
+      color: var(--moss);
+      text-transform: uppercase;
+      display: block; margin-bottom: 0.5rem;
+    }
+
+    .about-desc {
+      font-size: 0.8rem;
+      color: var(--moss);
+      line-height: 1.65;
+      opacity: 0.75;
+    }
+
+    /* ── Malaysia strip ── */
+    .malaysia-strip {
+      background: var(--forest);
+      text-align: center;
+      padding: 1.3rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+    }
+
+    .malaysia-text {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      color: rgba(240,236,216,0.7);
+      text-transform: uppercase;
+    }
+
+    .malaysia-text strong { color: var(--gold-lt); font-weight: 500; }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--ink-deep);
+      padding: 2.8rem 2rem;
+      text-align: center;
+    }
+
+    .footer-kanji {
+      font-family: 'Noto Serif SC', serif;
+      font-size: 1.5rem;
+      color: var(--cream);
+      opacity: 0.3;
+      display: block; margin-bottom: 0.4rem;
+    }
+
+    .footer-logo {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.35em;
+      color: var(--cream);
+      opacity: 0.28;
+      text-transform: uppercase;
+      display: block; margin-bottom: 0.5rem;
+    }
+
+    .footer-note {
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      color: var(--sage);
+      opacity: 0.38;
+    }
+
+    /* ── Animations ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes expandX {
+      from { transform: scaleX(0); opacity: 0; }
+      to   { transform: scaleX(1); opacity: 0.6; }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.85s ease, transform 0.85s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 600px) {
+      nav { padding: 1.2rem 1.4rem; }
+      .flavor-grid { grid-template-columns: 1fr; max-width: 290px; }
+      .about-row { grid-template-columns: 1fr; gap: 2.2rem; }
+      .waitlist-form { flex-direction: column; }
+      .waitlist-form button { padding: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a class="nav-logo" href="#">Chayay</a>
+    <span class="nav-tag">Coming Soon</span>
+  </nav>
+
+  <section class="hero">
+    <div class="sun"></div>
+
+    <!--
+      Mountains: rounded humps, not pointy peaks, not flat waves.
+      Each "peak" is a smooth dome made with symmetric cubic beziers.
+      The control points are directly above the peak so the top is
+      a gentle rounded arch — like the hills in the logo blob.
+    -->
+    <svg class="mountains" viewBox="0 0 1440 420"
+         preserveAspectRatio="none"
+         xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+      <!-- Far range — 3 soft rounded humps, lightest -->
+      <path d="
+        M -10 420
+        L -10 310
+        C 60 310 100 240 180 240
+        C 260 240 300 290 380 290
+        C 460 290 500 218 600 218
+        C 700 218 740 275 820 275
+        C 900 275 940 210 1040 210
+        C 1140 210 1180 265 1260 265
+        C 1340 265 1390 235 1450 235
+        L 1450 420 Z"
+        fill="#9BAE90" opacity="0.30"/>
+
+      <!-- Mid range — 3 bigger humps, overlapping, medium green -->
+      <path d="
+        M -10 420
+        L -10 335
+        C 50 335 90 265 190 258
+        C 290 251 330 305 430 305
+        C 530 305 570 228 680 225
+        C 790 222 830 290 940 288
+        C 1050 286 1090 225 1200 220
+        C 1310 215 1370 270 1450 268
+        L 1450 420 Z"
+        fill="#5C7A58" opacity="0.50"/>
+
+      <!-- Near range — fullest, darkest, rounded tops sitting low -->
+      <path d="
+        M -10 420
+        L -10 370
+        C 30 370 60 320 130 312
+        C 200 304 240 348 320 345
+        C 400 342 440 295 540 288
+        C 640 281 680 332 780 330
+        C 880 328 920 282 1020 278
+        C 1120 274 1160 318 1260 316
+        C 1360 314 1400 290 1450 288
+        L 1450 420 Z"
+        fill="#3A5C3A" opacity="0.78"/>
+
+      <!-- Mist fade at base -->
+      <rect x="-10" y="395" width="1460" height="25"
+            fill="#EDEADE" opacity="0.65"/>
+    </svg>
+
+    <div class="mist"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Malaysia · Pure Instant Tea</p>
+      <div class="hero-kanji">茶业</div>
+      <div class="hero-wordmark">Chayay</div>
+      <div class="hero-rule"></div>
+      <div class="hero-descriptor">Daily zen ritual &nbsp;<span>·</span>&nbsp; Premium tea sachets</div>
+    </div>
+  </section>
+
+  <!-- Form -->
+  <section class="form-section">
+    <p class="form-eyebrow reveal">Pre-launch waitlist</p>
+    <h2 class="form-heading reveal">Your ritual,<br/><em>before anyone else</em></h2>
+    <p class="form-sub reveal">
+      Premium Oolong and Green Tea — pure instant, single-serve sachets.
+      Be the first to know when Chayay launches.
+    </p>
+    <div class="perks reveal">
+      <span class="perk gold">✦ Pre-launch pricing</span>
+      <span class="perk">✦ Early access</span>
+      <span class="perk">✦ First to know</span>
+    </div>
+    <form class="waitlist-form reveal" id="waitlist-form"
+          action="https://formspree.io/f/xwpbqkrz" method="POST">
+      <input type="email" name="email"
+             placeholder="your@email.com" required autocomplete="email"/>
+      <button type="submit">Join waitlist</button>
+    </form>
+    <div class="success-msg" id="success-msg">
+      You're on the list — see you at launch. 茶
+    </div>
+    <p class="form-note reveal">No spam. Just Chayay.</p>
+  </section>
+
+  <!-- Flavors -->
+  <section class="flavors">
+    <p class="section-eyebrow reveal">The blends</p>
+    <div class="flavor-grid reveal">
+      <div class="flavor-card">
+        <span class="flavor-kanji">烏龍</span>
+        <span class="flavor-name">Premium Oolong</span>
+        <p class="flavor-desc">Complex, roasted, and smooth. A grounding cup for mornings that ask something of you.</p>
+        <span class="flavor-tag">coming soon</span>
+      </div>
+      <div class="flavor-card">
+        <span class="flavor-kanji">綠茶</span>
+        <span class="flavor-name">Green Tea</span>
+        <p class="flavor-desc">Clean, bright, and alive. The reset you reach for when clarity matters most.</p>
+        <span class="flavor-tag">coming soon</span>
+      </div>
+    </div>
+
+    <div class="about-row">
+      <div class="about-item reveal">
+        <span class="about-num">3g</span>
+        <span class="about-label">Per sachet</span>
+        <p class="about-desc">One perfect serve. Drop in, breathe, begin.</p>
+      </div>
+      <div class="about-item reveal">
+        <span class="about-num">純</span>
+        <span class="about-label">Pure</span>
+        <p class="about-desc">No additives, no fillers. Just the leaf, preserved at its best.</p>
+      </div>
+      <div class="about-item reveal">
+        <span class="about-num">日</span>
+        <span class="about-label">Daily ritual</span>
+        <p class="about-desc">For mornings, desk breaks, and quiet moments between.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Malaysia only -->
+  <div class="malaysia-strip reveal">
+    <span>🇲🇾</span>
+    <span class="malaysia-text">Currently available in <strong>Malaysia only</strong></span>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-kanji">茶业</span>
+    <span class="footer-logo">Chayay</span>
+    <p class="footer-note">Malaysia &nbsp;·&nbsp; Pure Instant Tea &nbsp;·&nbsp; © 2025</p>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const obs = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          obs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => obs.observe(el));
+
+    const form = document.getElementById('waitlist-form');
+    const success = document.getElementById('success-msg');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button');
+      btn.textContent = '...'; btn.disabled = true;
+      try {
+        const res = await fetch(form.action, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: { 'Accept': 'application/json' }
+        });
+        if (res.ok) {
+          form.style.display = 'none';
+          success.style.display = 'block';
+        } else {
+          btn.textContent = 'Try again'; btn.disabled = false;
+        }
+      } catch {
+        btn.textContent = 'Try again'; btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
